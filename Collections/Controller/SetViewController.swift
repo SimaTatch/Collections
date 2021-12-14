@@ -15,7 +15,20 @@ class SetViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         firstTextField.becomeFirstResponder()
         self.navigationItem.title = "Set \(randomNumber)"
+        firstTextField.delegate = self
+        secondTextField.delegate = self
         
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard string != "" else {return true}
+        return onlyLetters(string: string)
+    }
+
+    func onlyLetters(string: String) -> Bool {
+        let leftSideField = CharacterSet.decimalDigits
+        let rightSideField = CharacterSet(charactersIn: string)
+        return !leftSideField.isSuperset(of: rightSideField)
     }
     
     

@@ -1,9 +1,4 @@
-//
-//  ViewController.swift
-//  Collections
-//
-//  Created by Серафима  Татченкова  on 07.12.2021.
-//
+
 
 import UIKit
 
