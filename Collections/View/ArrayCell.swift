@@ -8,6 +8,7 @@ class ArrayCell: UICollectionViewCell {
     @IBOutlet weak var cellIndicator: UIActivityIndicatorView!
     
     
+    
     var arrays: Arrays? {
         didSet {
             arrayLabel.text = arrays?.name

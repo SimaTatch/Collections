@@ -71,7 +71,7 @@
                                         <color key="backgroundColor" systemColor="systemPinkColor"/>
                                         <connections>
                                             <outlet property="arrayLabel" destination="Q8N-VW-BxA" id="Y5W-ok-0nB"/>
-                                            <outlet property="cellIndicator" destination="qLF-o9-MMH" id="hls-7Z-ibc"/>
+                                            <outlet property="cellIndicator" destination="qLF-o9-MMH" id="xI9-jv-UUD"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
