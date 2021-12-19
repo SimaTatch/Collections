@@ -18,8 +18,11 @@ class SetViewController: UIViewController, UITextFieldDelegate {
         self.navigationItem.title = "Set \(randomNumber)"
         firstTextField.delegate = self
         secondTextField.delegate = self
-
-        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
     
 //    only letters func
