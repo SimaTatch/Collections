@@ -10,7 +10,7 @@ class ArrayViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
    
     let randomNumber = Int.random(in: 0...2000)
-    var arrayCell = ArrayCell()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()

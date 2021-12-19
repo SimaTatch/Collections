@@ -2,7 +2,6 @@
 
 import Foundation
 
-struct NameAndNumber {
+struct DictionaryStruct {
     var name: String?
-    var number: String?
 }

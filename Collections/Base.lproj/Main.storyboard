@@ -52,9 +52,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="jN5-U5-8aI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="7yd-tX-KsD"/>
+                            <constraint firstItem="jN5-U5-8aI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="961-8a-7Ix"/>
+                            <constraint firstItem="jN5-U5-8aI" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="PlM-1U-P8C"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jN5-U5-8aI" secondAttribute="trailing" id="Rqr-Kw-HLA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jN5-U5-8aI" secondAttribute="bottom" id="TXZ-gX-dIN"/>
+                            <constraint firstItem="jN5-U5-8aI" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="qcO-6Y-Li0"/>
                             <constraint firstItem="jN5-U5-8aI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="vGg-hW-AdP"/>
+                            <constraint firstItem="jN5-U5-8aI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="z31-ba-22b"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Collections" largeTitleDisplayMode="always" id="6pG-iF-kEP"/>

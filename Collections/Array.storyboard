@@ -17,29 +17,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKC-kd-H9i">
-                                <rect key="frame" x="0.0" y="88" width="414" height="65"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IKC-kd-H9i">
+                                <rect key="frame" x="0.0" y="44" width="414" height="65"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Create Int array with 10_000_000 elements"/>
                                 <connections>
                                     <action selector="createArray:" destination="RHo-EI-tcx" eventType="touchUpInside" id="sDf-gn-Vbw"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="voK-ZQ-DZB">
-                                <rect key="frame" x="167" y="88" width="81" height="65"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9H2-bo-2Y6">
-                                <rect key="frame" x="0.0" y="110" width="414" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9H2-bo-2Y6">
+                                <rect key="frame" x="0.0" y="66" width="414" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ZX8-ya-luu"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Oe0-Cb-rL1">
-                                <rect key="frame" x="0.0" y="153" width="414" height="743"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Oe0-Cb-rL1">
+                                <rect key="frame" x="0.0" y="110" width="414" height="743"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2EO-LP-2TB">
                                     <size key="itemSize" width="200" height="100"/>
@@ -76,9 +72,33 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="voK-ZQ-DZB">
+                                <rect key="frame" x="168" y="65" width="79" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="ZOT-7n-D4U"/>
+                                </constraints>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Kg9-97-8rl"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Oe0-Cb-rL1" secondAttribute="bottom" constant="43" id="3My-f9-XMW"/>
+                            <constraint firstItem="9H2-bo-2Y6" firstAttribute="top" secondItem="Kg9-97-8rl" secondAttribute="top" constant="22" id="41D-bY-8XY"/>
+                            <constraint firstItem="voK-ZQ-DZB" firstAttribute="top" secondItem="Kg9-97-8rl" secondAttribute="top" constant="21" id="7hM-Uu-NLB"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="Oe0-Cb-rL1" secondAttribute="bottom" constant="9" id="9ns-xh-XRn"/>
+                            <constraint firstItem="9H2-bo-2Y6" firstAttribute="leading" secondItem="Oe0-Cb-rL1" secondAttribute="leading" id="DFm-Dp-3X8"/>
+                            <constraint firstItem="IKC-kd-H9i" firstAttribute="top" secondItem="Kg9-97-8rl" secondAttribute="top" id="Nlw-JR-zBv"/>
+                            <constraint firstItem="IKC-kd-H9i" firstAttribute="leading" secondItem="9H2-bo-2Y6" secondAttribute="leading" id="Yjb-vS-dl1"/>
+                            <constraint firstItem="IKC-kd-H9i" firstAttribute="trailing" secondItem="9H2-bo-2Y6" secondAttribute="trailing" id="caY-IT-NfI"/>
+                            <constraint firstItem="9H2-bo-2Y6" firstAttribute="trailing" secondItem="Oe0-Cb-rL1" secondAttribute="trailing" id="dy1-yd-wip"/>
+                            <constraint firstItem="Oe0-Cb-rL1" firstAttribute="leading" secondItem="Kg9-97-8rl" secondAttribute="leading" id="ecb-gy-1v4"/>
+                            <constraint firstItem="Kg9-97-8rl" firstAttribute="trailing" secondItem="voK-ZQ-DZB" secondAttribute="trailing" constant="167" id="fyQ-Mb-dGJ"/>
+                            <constraint firstItem="IKC-kd-H9i" firstAttribute="centerY" secondItem="9H2-bo-2Y6" secondAttribute="centerY" id="gal-me-YyS"/>
+                            <constraint firstItem="Oe0-Cb-rL1" firstAttribute="top" secondItem="IKC-kd-H9i" secondAttribute="bottom" constant="1" id="gmg-bX-pGQ"/>
+                            <constraint firstItem="Oe0-Cb-rL1" firstAttribute="trailing" secondItem="Kg9-97-8rl" secondAttribute="trailing" id="nx5-a9-0JQ"/>
+                            <constraint firstItem="Oe0-Cb-rL1" firstAttribute="top" relation="lessThanOrEqual" secondItem="voK-ZQ-DZB" secondAttribute="bottom" constant="44" id="p7y-ii-qfk"/>
+                            <constraint firstItem="voK-ZQ-DZB" firstAttribute="leading" secondItem="Kg9-97-8rl" secondAttribute="leading" constant="168" id="yIg-zm-WwB"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" largeTitleDisplayMode="never" id="eqQ-7e-vLo"/>
                     <connections>

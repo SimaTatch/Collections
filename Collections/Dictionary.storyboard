@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,17 +17,116 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="7S5-AO-pvy">
-                                <rect key="frame" x="197" y="438" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uPN-oJ-iVO">
+                                <rect key="frame" x="0.0" y="206" width="414" height="690"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="690" id="K2H-fL-RNL"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="AmU-Fg-y0E">
+                                    <size key="itemSize" width="200" height="80"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" id="DIz-Sk-mR8">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="690"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </activityIndicatorView>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dictionaryCell" id="8A8-9c-AeN" customClass="DictionaryCell" customModule="Collections" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="200" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="E9A-tA-etS">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYs-zT-4C0">
+                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="80"/>
+                                                    <color key="backgroundColor" red="1" green="0.64260193170000002" blue="0.23825358990000001" alpha="0.59737168870000001" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="1dX-4h-8EA">
+                                                    <rect key="frame" x="90" y="30" width="20" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="20" id="GEu-ap-VjY"/>
+                                                        <constraint firstAttribute="height" constant="20" id="XHM-X0-L0C"/>
+                                                    </constraints>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="1dX-4h-8EA" secondAttribute="bottom" constant="30" id="BPb-c2-DaW"/>
+                                                <constraint firstItem="OYs-zT-4C0" firstAttribute="leading" secondItem="E9A-tA-etS" secondAttribute="leading" id="COn-eY-k0L"/>
+                                                <constraint firstAttribute="trailing" secondItem="1dX-4h-8EA" secondAttribute="trailing" constant="90" id="DO4-7v-S7g"/>
+                                                <constraint firstItem="1dX-4h-8EA" firstAttribute="top" secondItem="E9A-tA-etS" secondAttribute="top" constant="30" id="NCg-Hb-JRZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="OYs-zT-4C0" secondAttribute="trailing" id="OGA-wz-5uW"/>
+                                                <constraint firstAttribute="bottom" secondItem="OYs-zT-4C0" secondAttribute="bottom" id="WgZ-Za-dfd"/>
+                                                <constraint firstItem="1dX-4h-8EA" firstAttribute="leading" secondItem="E9A-tA-etS" secondAttribute="leading" constant="90" id="Z5Z-z3-BpG"/>
+                                                <constraint firstItem="OYs-zT-4C0" firstAttribute="top" secondItem="E9A-tA-etS" secondAttribute="top" id="i9Y-dq-fuE"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <connections>
+                                            <outlet property="cellActivityIndicator" destination="1dX-4h-8EA" id="vMg-LL-n9t"/>
+                                            <outlet property="dictCellLabel" destination="OYs-zT-4C0" id="qlw-MG-KzV"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Array" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NPk-Vg-Ynq">
+                                <rect key="frame" x="0.0" y="143" width="212" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="212" id="8I9-ej-Jjf"/>
+                                    <constraint firstAttribute="height" constant="55" id="gp9-Fq-KJN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dictionary" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvt-VG-IWZ">
+                                <rect key="frame" x="212" y="143" width="202" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="4v5-pT-oZ5"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="212" id="kVn-7u-6aS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="42O-xA-ycT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="uPN-oJ-iVO" firstAttribute="leading" secondItem="42O-xA-ycT" secondAttribute="leading" id="2Th-MK-zKs"/>
+                            <constraint firstItem="Bvt-VG-IWZ" firstAttribute="leading" secondItem="NPk-Vg-Ynq" secondAttribute="trailing" id="3Le-wS-M3b"/>
+                            <constraint firstItem="NPk-Vg-Ynq" firstAttribute="baseline" secondItem="Bvt-VG-IWZ" secondAttribute="baseline" id="9gT-MZ-Gkn"/>
+                            <constraint firstItem="NPk-Vg-Ynq" firstAttribute="leading" secondItem="uPN-oJ-iVO" secondAttribute="leading" id="BBF-XG-Ovv"/>
+                            <constraint firstItem="Bvt-VG-IWZ" firstAttribute="leading" secondItem="NPk-Vg-Ynq" secondAttribute="trailing" id="DbU-bu-L8C"/>
+                            <constraint firstItem="uPN-oJ-iVO" firstAttribute="top" secondItem="NPk-Vg-Ynq" secondAttribute="bottom" constant="8" symbolic="YES" id="FpJ-eU-vmT"/>
+                            <constraint firstItem="NPk-Vg-Ynq" firstAttribute="leading" secondItem="42O-xA-ycT" secondAttribute="leading" id="HeT-a0-DXn"/>
+                            <constraint firstItem="uPN-oJ-iVO" firstAttribute="leading" secondItem="42O-xA-ycT" secondAttribute="leading" id="M9R-gk-S7M"/>
+                            <constraint firstItem="Bvt-VG-IWZ" firstAttribute="top" relation="lessThanOrEqual" secondItem="42O-xA-ycT" secondAttribute="top" constant="99" id="QPE-u8-Nvd"/>
+                            <constraint firstItem="uPN-oJ-iVO" firstAttribute="top" secondItem="Bvt-VG-IWZ" secondAttribute="bottom" constant="8" id="T8S-ye-NTi"/>
+                            <constraint firstItem="uPN-oJ-iVO" firstAttribute="trailing" secondItem="42O-xA-ycT" secondAttribute="trailing" id="YzF-W0-U6m"/>
+                            <constraint firstItem="uPN-oJ-iVO" firstAttribute="trailing" secondItem="42O-xA-ycT" secondAttribute="trailing" id="ZXf-w1-spd"/>
+                            <constraint firstItem="uPN-oJ-iVO" firstAttribute="leading" secondItem="42O-xA-ycT" secondAttribute="leading" id="aB2-Jl-y4K"/>
+                            <constraint firstAttribute="bottom" secondItem="uPN-oJ-iVO" secondAttribute="bottom" id="ahq-82-qDB"/>
+                            <constraint firstItem="Bvt-VG-IWZ" firstAttribute="leading" secondItem="NPk-Vg-Ynq" secondAttribute="trailing" id="aq3-dN-CYs"/>
+                            <constraint firstItem="NPk-Vg-Ynq" firstAttribute="top" relation="lessThanOrEqual" secondItem="42O-xA-ycT" secondAttribute="top" constant="99" id="faw-dU-kLh"/>
+                            <constraint firstItem="uPN-oJ-iVO" firstAttribute="top" secondItem="Bvt-VG-IWZ" secondAttribute="bottom" constant="8" id="hW1-it-Zew"/>
+                            <constraint firstItem="uPN-oJ-iVO" firstAttribute="trailing" secondItem="42O-xA-ycT" secondAttribute="trailing" id="j83-gJ-Tag"/>
+                            <constraint firstItem="Bvt-VG-IWZ" firstAttribute="trailing" secondItem="uPN-oJ-iVO" secondAttribute="trailing" id="jhe-th-ivL"/>
+                            <constraint firstItem="Bvt-VG-IWZ" firstAttribute="trailing" secondItem="42O-xA-ycT" secondAttribute="trailing" id="v39-rr-fi0"/>
+                            <constraint firstItem="uPN-oJ-iVO" firstAttribute="top" secondItem="42O-xA-ycT" secondAttribute="top" constant="162" id="zQR-iv-UOf"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Dictionary" largeTitleDisplayMode="never" id="F90-C6-SEK"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="7S5-AO-pvy" id="d2V-KD-mQ7"/>
+                        <outlet property="activityIndicator" destination="DIz-Sk-mR8" id="glW-LQ-c6h"/>
+                        <outlet property="arrayLabel" destination="NPk-Vg-Ynq" id="8BX-Wg-Eup"/>
+                        <outlet property="collectionView" destination="uPN-oJ-iVO" id="nHx-2y-N9K"/>
+                        <outlet property="dictionaryLabel" destination="Bvt-VG-IWZ" id="p9p-kc-TQg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iok-OJ-eQD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
