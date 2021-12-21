@@ -10,6 +10,9 @@ class ArrayViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
    
     let randomNumber = Int.random(in: 0...2000)
+    var array10m = [Int]()
+    var array100 = [Int]()
+    
 
     
     override func viewDidLoad() {
@@ -22,42 +25,42 @@ class ArrayViewController: UIViewController {
         
     }
     
-    var oneArray: [Arrays] = {
+    var oneArray: [DictArrayStruct] = {
         
-        var firstArray = Arrays()
+        var firstArray = DictArrayStruct()
         firstArray.name = "Insert at the beginning 1000 elements one-by-one"
         
-        var secondArray = Arrays()
+        var secondArray = DictArrayStruct()
         secondArray.name = "Insert at the beginning 1000 elements at once"
         
-        var thirdArray = Arrays()
+        var thirdArray = DictArrayStruct()
         thirdArray.name = "Insert in the middle 1000 elements one-by-one"
         
-        var fourthArray = Arrays()
+        var fourthArray = DictArrayStruct()
         fourthArray.name = "Insert in the middle 1000 elements at once"
         
-        var fifthArray = Arrays()
+        var fifthArray = DictArrayStruct()
         fifthArray.name = "Append to the end 1000 elements one-by-one"
         
-        var sixthArray = Arrays()
+        var sixthArray = DictArrayStruct()
         sixthArray.name = "Append to the end 1000 elements at once"
         
-        var seventhArray = Arrays()
+        var seventhArray = DictArrayStruct()
         seventhArray.name = "Remove at the beginning 1000 elements one-by-one"
 
-        var eighthArray = Arrays()
+        var eighthArray = DictArrayStruct()
         eighthArray.name = "Remove at the beginning 1000 elements at once"
         
-        var ninthArray = Arrays()
+        var ninthArray = DictArrayStruct()
         ninthArray.name = "Remove in the middle 1000 elements one-by-one"
         
-        var tenthArray = Arrays()
+        var tenthArray = DictArrayStruct()
         tenthArray.name = "Remove in the middle 1000 elements at once"
         
-        var eleventhArray = Arrays()
+        var eleventhArray = DictArrayStruct()
         eleventhArray.name = "Remove at the end 1000 elements one-by-one"
 
-        var twelfthArray = Arrays()
+        var twelfthArray = DictArrayStruct()
         twelfthArray.name = "Remove at the end 1000 elements at once"
 
         return [firstArray, secondArray, thirdArray, fourthArray, fifthArray, sixthArray, seventhArray, eighthArray, ninthArray, tenthArray, eleventhArray, twelfthArray]
@@ -73,17 +76,29 @@ class ArrayViewController: UIViewController {
         }
     }
     
-//    create main array /insert at once/ append at once
-    
-    func arrayCreationAndAtOnce(insertAtOnce: Bool, at: Int, append: Bool, complition: @escaping (Double)  -> ()) {
+//    create main array append at once
+    func arrayCreationAndAtOnce( complition: @escaping (Double)  -> ()) {
         let start = CFAbsoluteTimeGetCurrent()
-        var array10m = Array(0...9_999_999)
+        let array10m = Array(0...9_999_999)
         let array100 = Array(0...999)
-        if insertAtOnce {
-            array10m.insert(contentsOf: array100, at: at)
+        let diff = CFAbsoluteTimeGetCurrent() - start
+        self.array10m = array10m
+        self.array100 = array100
+        DispatchQueue.main.async {
+            complition (Double(round(10000 * diff) / 10000))
         }
-        if append {
-            array10m.append(contentsOf: array100)
+    }
+    
+//    insert at once/one-by-one
+    func insertArray(atOnce: Bool, at: Int, complition: @escaping (Double) -> ()) {
+        let start = CFAbsoluteTimeGetCurrent()
+        if atOnce {
+            array10m.insert(contentsOf: array100, at: at)
+        } else {
+            for i in array100.reversed() {
+            array10m.insert(i , at: at)
+                
+            }
         }
         let diff = CFAbsoluteTimeGetCurrent() - start
         DispatchQueue.main.async {
@@ -91,19 +106,12 @@ class ArrayViewController: UIViewController {
         }
     }
     
-//    insert one-by-one / append one-by-one
-    
-    func arrayOneByOne( insertOneByOne: Bool, at: Int, append: Bool, complition: @escaping (Double) -> ()) {
+//    append at once/one-by-one
+    func appendArray(atOnce: Bool, complition: @escaping (Double) -> ()) {
         let start = CFAbsoluteTimeGetCurrent()
-        var array10m = Array(0...9_999_999)
-        let array100 = Array(0...999)
-        
-        if insertOneByOne {
-            for i in array100.reversed() {
-                array10m.insert(i , at: at)
-            }
-        }
-        if append {
+        if atOnce {
+            array10m.append(contentsOf: array100)
+        } else {
             for i in array100.reversed() {
                 array10m.append(i)
             }
@@ -114,22 +122,10 @@ class ArrayViewController: UIViewController {
         }
     }
     
-    //    remove at once
-    func arrayRemoveAtOnce(arrayToRemove: Range<Int>, complition: @escaping (Double) -> ()) {
+//    remove one-by-one
+    func removeOneByOneArray(at: Int, complition: @escaping (Double) -> ()) {
         let start = CFAbsoluteTimeGetCurrent()
-        var array10m = Array(0...9_999_999)
-        array10m.removeSubrange(arrayToRemove)
-        let diff = CFAbsoluteTimeGetCurrent() - start
-        DispatchQueue.main.async {
-            complition (Double(round(10000 * diff) / 10000))
-        }
-    }
-    //    remove one-by-one
-    func arrayRemoveOneByOne(at: Int, complition: @escaping (Double) -> ()) {
-        let start = CFAbsoluteTimeGetCurrent()
-        var array10m = Array(0...9_999_999)
-        let arrayToRemove = Array(0...999)
-        for _ in arrayToRemove {
+        for _ in array100 {
             array10m.remove(at: at)
         }
         let diff = CFAbsoluteTimeGetCurrent() - start
@@ -137,13 +133,21 @@ class ArrayViewController: UIViewController {
             complition (Double(round(10000 * diff) / 10000))
         }
     }
-    
+//    remove at once
+    func removeAtOnceArray(arrayToRemove: Range<Int>, complition: @escaping (Double) -> ()) {
+        let start = CFAbsoluteTimeGetCurrent()
+        array10m.removeSubrange(arrayToRemove)
+        let diff = CFAbsoluteTimeGetCurrent() - start
+        DispatchQueue.main.async {
+            complition (Double(round(10000 * diff) / 10000))
+        }
+    }
     
     @IBAction func createArray(_ sender: UIButton) {
         createArrayButton.setTitle("", for: [])
         isWorkIndicator(isAnimated: true, indicator: activityIndicator)
         DispatchQueue.global(qos: .userInitiated).async { [self] in
-            arrayCreationAndAtOnce(insertAtOnce: false, at: 0, append: false) { time in
+            arrayCreationAndAtOnce() { time in
                 isWorkIndicator(isAnimated: false, indicator: self.activityIndicator)
                 executionTimeLabel.text = "Array creation time: \(time) seconds"
                 collectionView.isHidden = false
@@ -170,6 +174,10 @@ extension ArrayViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? ArrayCell
+        let complition: (Double) -> () = { [weak self] time in
+            cell?.arrayLabel.text = "Insertion time: \(time) seconds"
+            self?.isWorkIndicator(isAnimated: false, indicator: cell!.cellIndicator)
+        }
         switch indexPath {
             
 //           insert one-by-one, beginning
@@ -177,10 +185,7 @@ extension ArrayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             cell?.arrayLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                arrayOneByOne(insertOneByOne: true, at: 0, append: false){ time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellIndicator)
-                    cell?.arrayLabel.text = "Insertion time: \(time) seconds"
-                }
+                insertArray(atOnce: false, at: 0, complition: complition)
             }
             
 //          insert at once, beginning
@@ -188,10 +193,7 @@ extension ArrayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             cell?.arrayLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                arrayCreationAndAtOnce(insertAtOnce: true, at: 0, append: false) { time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellIndicator)
-                    cell?.arrayLabel.text = "Insertion time: \(time) seconds"
-                }
+                insertArray(atOnce: true, at: 0, complition: complition)
             }
             
 //           insert one-by-one, middle
@@ -199,10 +201,7 @@ extension ArrayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             cell?.arrayLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                arrayOneByOne(insertOneByOne:true, at: 499, append: false) { time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellIndicator)
-                    cell?.arrayLabel.text = "Insertion time: \(time) seconds"
-                }
+                insertArray(atOnce: false, at: 5_000_000, complition: complition)
             }
             
 //          insert at once, middle
@@ -210,42 +209,33 @@ extension ArrayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             cell?.arrayLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                arrayCreationAndAtOnce(insertAtOnce: true, at: 499, append: false) { time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellIndicator)
-                    cell?.arrayLabel.text = "Insertion time: \(time) seconds"
-                }
+                insertArray(atOnce: true, at: 5_000_000, complition: complition)
             }
+            
 //           append one-by-one, end
         case [0,4]:
             cell?.arrayLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                arrayOneByOne(insertOneByOne:false, at: 0, append: true) { time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellIndicator)
-                    cell?.arrayLabel.text = "Insertion time: \(time) seconds"
-                }
+                appendArray(atOnce: false, complition: complition)
             }
+
             
 //          append at once, end
         case [0,5]:
             cell?.arrayLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                arrayCreationAndAtOnce(insertAtOnce: false, at: 0, append: true) { time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellIndicator)
-                    cell?.arrayLabel.text = "Insertion time: \(time) seconds"
-                }
+                appendArray(atOnce: true, complition: complition)
             }
+
             
 //           remove one-by-one, beginning
         case [0,6]:
             cell?.arrayLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                arrayRemoveOneByOne(at: 0){ time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellIndicator)
-                    cell?.arrayLabel.text = "Insertion time: \(time) seconds"
-                }
+                removeOneByOneArray(at: 0, complition: complition)
             }
             
 //          remove at once, beginning
@@ -253,54 +243,39 @@ extension ArrayViewController: UICollectionViewDelegate, UICollectionViewDataSou
             cell?.arrayLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                arrayRemoveAtOnce(arrayToRemove: (0..<100)) { time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellIndicator)
-                    cell?.arrayLabel.text = "Insertion time: \(time) seconds"
-                }
+                removeAtOnceArray(arrayToRemove: (0..<1000), complition: complition)
             }
 //           remove one-by-one, middle
         case [0,8]:
             cell?.arrayLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                arrayRemoveOneByOne(at: 499) { time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellIndicator)
-                    cell?.arrayLabel.text = "Insertion time: \(time) seconds"
-                }
+                removeOneByOneArray(at: 5_000_000, complition: complition)
             }
+
             
 //          remove at once, middle
         case [0,9]:
             cell?.arrayLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                arrayRemoveAtOnce(arrayToRemove: (449..<549)) { time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellIndicator)
-                    cell?.arrayLabel.text = "Insertion time: \(time) seconds"
-                }
+                removeAtOnceArray(arrayToRemove: (5_000_000..<5_001_000), complition: complition)
             }
 //           remove one-by-one, end
         case [0,10]:
             cell?.arrayLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                arrayRemoveOneByOne(at: 999) { time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellIndicator)
-                    cell?.arrayLabel.text = "Insertion time: \(time) seconds"
-                }
+                removeOneByOneArray(at: 9_999_999, complition: complition)
             }
             
 //          remove at once, end
         case [0,11]:
             cell?.arrayLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellIndicator)
-            DispatchQueue.global(qos: .userInitiated).async { [self] in
-                arrayRemoveAtOnce(arrayToRemove: (900..<999)) { time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellIndicator)
-                    cell?.arrayLabel.text = "Insertion time: \(time) seconds"
+                DispatchQueue.global(qos: .userInitiated).async { [self] in
+                    removeAtOnceArray(arrayToRemove: (9_998_999..<9_999_999), complition: complition)
                 }
-            }
-            
         default:
             break
         }

@@ -10,7 +10,8 @@ class DictionaryViewController: UIViewController {
     @IBOutlet weak var dictionaryLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     let randomNumber = Int.random(in: 0...2000)
-    
+    var contactArray = [String]()
+    var contactDictionary = [String:String]()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Dictionary \(randomNumber)"
@@ -18,33 +19,35 @@ class DictionaryViewController: UIViewController {
         collectionView.isHidden = false
         DispatchQueue.global(qos: .userInitiated).async { [self] in
             createContactArray( complition: { time in
-                createContactDictionary(complition: { time in
-                    isWorkIndicator(isAnimated: false, indicator: activityIndicator)
-                    collectionView.delegate = self
-                    collectionView.dataSource = self
-                })
+                DispatchQueue.global(qos: .userInitiated).async {
+                    createContactDictionary(complition: { time in
+                        isWorkIndicator(isAnimated: false, indicator: activityIndicator)
+                        collectionView.delegate = self
+                        collectionView.dataSource = self
+                    })
+                }
             })
         }
     }
     
-    var dictArray: [DictionaryStruct] = {
+    var dictArray: [DictArrayStruct] = {
         
-        var firstElementArray = DictionaryStruct()
+        var firstElementArray = DictArrayStruct()
         firstElementArray.name = "Find the first contact"
         
-        var firstElementDictionary = DictionaryStruct()
+        var firstElementDictionary = DictArrayStruct()
         firstElementDictionary.name = "Find the first contact"
         
-        var lastElementArray = DictionaryStruct()
+        var lastElementArray = DictArrayStruct()
         lastElementArray.name = "Find the last contact"
         
-        var lastElementDictionary = DictionaryStruct()
+        var lastElementDictionary = DictArrayStruct()
         lastElementDictionary.name = "Find the last contact"
         
-        var nonExistingElementArray = DictionaryStruct()
+        var nonExistingElementArray = DictArrayStruct()
         nonExistingElementArray.name = "Search for a non-existing element"
         
-        var nonExistingElementDictionary = DictionaryStruct()
+        var nonExistingElementDictionary = DictArrayStruct()
         nonExistingElementDictionary.name = "Search for a non-existing element"
         
         return [firstElementArray, firstElementDictionary, lastElementArray, lastElementDictionary, nonExistingElementArray, nonExistingElementDictionary]
@@ -61,7 +64,7 @@ class DictionaryViewController: UIViewController {
         }
     }
     
-//    create array functions
+//    create array function
     func createContactArray ( complition: @escaping (Double)  -> ()) {
         let start = CFAbsoluteTimeGetCurrent()
         var contactArray = [String]()
@@ -69,40 +72,12 @@ class DictionaryViewController: UIViewController {
             contactArray.append("Name\(String(i))")
         }
         let diff = CFAbsoluteTimeGetCurrent() - start
+        self.contactArray = contactArray
         DispatchQueue.main.async {
             complition (Double(round(10000 * diff) / 10000))
         }
     }
-    
-//    find first and last array contacts
-    func findContactArray (findFirstContact: Bool, findLastContact: Bool, nonExisting: Bool, complition: @escaping (String) -> ()) {
-        var firstOrLastContact = ""
-        var contactArray = [String]()
-        for i in 0 ... 10_000_000 {
-            contactArray.append("Name\(String(i))")
-        }
-        if findFirstContact {
-            if let currentContact = contactArray.first(where: { $0 > "0" }) {
-                firstOrLastContact = currentContact
-            }
-        }
-        if findLastContact {
-            if let currentContact = contactArray.last(where: { $0 > "0" }) {
-                firstOrLastContact = currentContact
-            }
-        }
-        if nonExisting {
-            if contactArray.contains("-1")  {
-                firstOrLastContact = "element exists"
-            } else {
-                firstOrLastContact = "element doesn't exist"
-            }
-        }
-        DispatchQueue.main.async {
-            complition (String(firstOrLastContact))
-        }
-    }
-    
+  
 //    create dictionary function
     func createContactDictionary (complition: @escaping (Double)  -> ()) {
         let start = CFAbsoluteTimeGetCurrent()
@@ -111,32 +86,29 @@ class DictionaryViewController: UIViewController {
             contactDictionary [String(i)] = "Name\(i)"
         }
         let diff = CFAbsoluteTimeGetCurrent() - start
+        self.contactDictionary = contactDictionary
         DispatchQueue.main.async {
             complition (Double(round(10000 * diff) / 10000))
         }
     }
     
-//    find first and last dictionary contacts
-    func findContactDictionary (findFirstContact: Bool, findLastContact: Bool, nonExisting: Bool, complition: @escaping (String)  -> ()) {
-        var firstOrLastContact = ""
-        var contactDictionary: Dictionary = [String: String]()
-        for i in 0 ... 10_000_000 {
-            contactDictionary [(String(i))] = "Name\(i)"
-        }
-        if findFirstContact {
-            firstOrLastContact = contactDictionary [(String(1))]  ?? ""
-        }
-        if findLastContact {
-            firstOrLastContact = contactDictionary [(String(10_000_000))] ?? ""
-        }
-        if nonExisting {
-            firstOrLastContact = contactDictionary [(String(-1))]  ?? "element doesn't exist"
-        }
-        
+    func findAtArray(element: String, complition: @escaping (Double, String) -> ()) {
+        let start = CFAbsoluteTimeGetCurrent()
+        let result = contactArray.first(where: { $0 == element }) ?? "element doesn't exist"
+        let diff = CFAbsoluteTimeGetCurrent() - start
         DispatchQueue.main.async {
-            complition (String(firstOrLastContact))
+            complition (Double(round(10000 * diff) / 10000), result)
         }
     }
+    func findAtDictionary(element: String, complition: @escaping (Double, String) -> ()) {
+        let start = CFAbsoluteTimeGetCurrent()
+        let result = contactDictionary[element] ?? "element doesn't exist"
+        let diff = CFAbsoluteTimeGetCurrent() - start
+        DispatchQueue.main.async {
+            complition (Double(round(10000 * diff) / 10000), result)
+        }
+    }
+
 }
 
 extension DictionaryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -155,6 +127,11 @@ extension DictionaryViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? DictionaryCell
+        let complition: (Double, String) -> () = { [weak self] time, word in
+            cell?.dictCellLabel.text = "Element search time: \(time) seconds \n"
+            cell?.dictCellLabel.text = ((cell?.dictCellLabel.text ?? "") + "The word is: \(word)")
+            self?.isWorkIndicator(isAnimated: false, indicator: cell!.cellActivityIndicator)
+        }
         switch indexPath {
             
 //            first element in array
@@ -162,16 +139,7 @@ extension DictionaryViewController: UICollectionViewDelegate, UICollectionViewDa
             cell?.dictCellLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellActivityIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                createContactArray() { time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellActivityIndicator)
-                    cell?.dictCellLabel.text = "First element search time: \(time) seconds \n"
-                    findContactArray(findFirstContact: true,
-                                          findLastContact: false,
-                                           nonExisting: false,
-                                          complition: { word in
-                        isWorkIndicator(isAnimated: false, indicator: cell!.cellActivityIndicator)
-                        cell?.dictCellLabel.text = (cell?.dictCellLabel.text ?? "") + "The word is: \(word)"})
-                }
+                findAtArray(element: contactArray.first ?? "", complition: complition)
             }
             
 //            first element in dictionary
@@ -179,16 +147,7 @@ extension DictionaryViewController: UICollectionViewDelegate, UICollectionViewDa
             cell?.dictCellLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellActivityIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                createContactArray() { time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellActivityIndicator)
-                    cell?.dictCellLabel.text = "First element search time: \(time) seconds \n"
-                    findContactDictionary(findFirstContact: true,
-                                          findLastContact: false,
-                                          nonExisting: false,
-                                          complition: { word in
-                        isWorkIndicator(isAnimated: false, indicator: cell!.cellActivityIndicator)
-                        cell?.dictCellLabel.text = (cell?.dictCellLabel.text ?? "") + "The word is: \(word)"})
-                }
+                findAtDictionary(element: contactDictionary.keys.first ?? "", complition: complition)
             }
             
 //            last element in array
@@ -196,16 +155,7 @@ extension DictionaryViewController: UICollectionViewDelegate, UICollectionViewDa
             cell?.dictCellLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellActivityIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                createContactArray() { time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellActivityIndicator)
-                    cell?.dictCellLabel.text = "Last element search time: \(time) seconds \n"
-                    findContactArray(findFirstContact: false,
-                                          findLastContact: true,
-                                          nonExisting: false,
-                                          complition: { word in
-                        isWorkIndicator(isAnimated: false, indicator: cell!.cellActivityIndicator)
-                        cell?.dictCellLabel.text = (cell?.dictCellLabel.text ?? "") + "The word is: \(word)"})
-                }
+                findAtArray(element: contactArray.last ?? "", complition: complition)
             }
             
 //            last element in dictionary
@@ -213,16 +163,8 @@ extension DictionaryViewController: UICollectionViewDelegate, UICollectionViewDa
             cell?.dictCellLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellActivityIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                createContactArray() { time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellActivityIndicator)
-                    cell?.dictCellLabel.text = "Last element search time: \(time) seconds \n"
-                    findContactDictionary(findFirstContact: false,
-                                          findLastContact: true,
-                                          nonExisting: false,
-                                          complition: { word in
-                        isWorkIndicator(isAnimated: false, indicator: cell!.cellActivityIndicator)
-                        cell?.dictCellLabel.text = (cell?.dictCellLabel.text ?? "") + "The word is: \(word)"})
-                }
+                findAtDictionary(element: contactDictionary.keys.first ?? "", complition: complition)
+
             }
             
 //            non-existing element in array
@@ -230,16 +172,7 @@ extension DictionaryViewController: UICollectionViewDelegate, UICollectionViewDa
             cell?.dictCellLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellActivityIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                createContactArray() { time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellActivityIndicator)
-                    cell?.dictCellLabel.text = "Last element search time: \(time) seconds \n"
-                    findContactArray(findFirstContact: false,
-                                     findLastContact: false,
-                                     nonExisting: true,
-                                     complition: { word in
-                        isWorkIndicator(isAnimated: false, indicator: cell!.cellActivityIndicator)
-                        cell?.dictCellLabel.text = (cell?.dictCellLabel.text ?? "") + "The word is: \(word)"})
-                }
+                findAtArray(element: "", complition: complition)
             }
             
 //            non-existing element in dictionary
@@ -247,16 +180,7 @@ extension DictionaryViewController: UICollectionViewDelegate, UICollectionViewDa
             cell?.dictCellLabel.text = ""
             isWorkIndicator(isAnimated: true, indicator: cell!.cellActivityIndicator)
             DispatchQueue.global(qos: .userInitiated).async { [self] in
-                createContactArray() { time in
-                    isWorkIndicator(isAnimated: false, indicator: cell!.cellActivityIndicator)
-                    cell?.dictCellLabel.text = "Last element search time: \(time) seconds \n"
-                    findContactDictionary(findFirstContact: false,
-                                          findLastContact: false,
-                                          nonExisting: true,
-                                          complition: { word in
-                        isWorkIndicator(isAnimated: false, indicator: cell!.cellActivityIndicator)
-                        cell?.dictCellLabel.text = (cell?.dictCellLabel.text ?? "") + "The word is: \(word)"})
-                }
+                findAtDictionary(element: "", complition: complition)
             }
         default:
             break

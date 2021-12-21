@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9206F5D2276CC394001A1D55 /* DictionaryStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9206F5D1276CC394001A1D55 /* DictionaryStruct.swift */; };
 		920BD3292764F46A005E0539 /* DictionaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 920BD3272764F46A005E0539 /* DictionaryViewController.swift */; };
 		920BD32A2764F46A005E0539 /* DictionaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 920BD3282764F46A005E0539 /* DictionaryViewController.xib */; };
-		9236B8432767DB5E000852CB /* Arrays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9236B8422767DB5E000852CB /* Arrays.swift */; };
+		9236B8432767DB5E000852CB /* DictArrayStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9236B8422767DB5E000852CB /* DictArrayStruct.swift */; };
 		9236B8482767DEC0000852CB /* ArrayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9236B8472767DEC0000852CB /* ArrayCell.swift */; };
 		92A06EFE2767A351001A2FE1 /* Array.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92A06EFD2767A351001A2FE1 /* Array.storyboard */; };
 		92A06F012767A362001A2FE1 /* Set.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92A06EFF2767A362001A2FE1 /* Set.storyboard */; };
@@ -28,10 +27,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9206F5D1276CC394001A1D55 /* DictionaryStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryStruct.swift; sourceTree = "<group>"; };
 		920BD3272764F46A005E0539 /* DictionaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryViewController.swift; sourceTree = "<group>"; };
 		920BD3282764F46A005E0539 /* DictionaryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DictionaryViewController.xib; sourceTree = "<group>"; };
-		9236B8422767DB5E000852CB /* Arrays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrays.swift; sourceTree = "<group>"; };
+		9236B8422767DB5E000852CB /* DictArrayStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictArrayStruct.swift; sourceTree = "<group>"; };
 		9236B8472767DEC0000852CB /* ArrayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayCell.swift; sourceTree = "<group>"; };
 		92A06EFD2767A351001A2FE1 /* Array.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Array.storyboard; sourceTree = "<group>"; };
 		92A06F002767A362001A2FE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Collections/Base.lproj/Set.storyboard; sourceTree = "<group>"; };
@@ -64,8 +62,7 @@
 		9236B8442767DBA5000852CB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9236B8422767DB5E000852CB /* Arrays.swift */,
-				9206F5D1276CC394001A1D55 /* DictionaryStruct.swift */,
+				9236B8422767DB5E000852CB /* DictArrayStruct.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -205,14 +202,13 @@
 			files = (
 				920BD3292764F46A005E0539 /* DictionaryViewController.swift in Sources */,
 				9236B8482767DEC0000852CB /* ArrayCell.swift in Sources */,
-				9236B8432767DB5E000852CB /* Arrays.swift in Sources */,
+				9236B8432767DB5E000852CB /* DictArrayStruct.swift in Sources */,
 				92CDCB66276245A2003E74F4 /* ArrayViewController.swift in Sources */,
 				92A192AC275F8DF800C3FF3B /* ViewController.swift in Sources */,
 				92A192BE2761453500C3FF3B /* SetViewController.swift in Sources */,
 				92A192A8275F8DF800C3FF3B /* AppDelegate.swift in Sources */,
 				92BD10E2276EAC940046B0E8 /* DictionaryCell.swift in Sources */,
 				92A192AA275F8DF800C3FF3B /* SceneDelegate.swift in Sources */,
-				9206F5D2276CC394001A1D55 /* DictionaryStruct.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

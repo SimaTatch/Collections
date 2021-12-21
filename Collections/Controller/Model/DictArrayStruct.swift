@@ -2,6 +2,6 @@
 
 import Foundation
 
-struct Arrays {
+struct DictArrayStruct {
     var name: String?
 }

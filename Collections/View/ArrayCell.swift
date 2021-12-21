@@ -9,7 +9,7 @@ class ArrayCell: UICollectionViewCell {
     
     
     
-    var arrays: Arrays? {
+    var arrays: DictArrayStruct? {
         didSet {
             arrayLabel.text = arrays?.name
             cellIndicator.isHidden = true
